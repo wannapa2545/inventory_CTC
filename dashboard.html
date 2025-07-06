@@ -2,273 +2,263 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>DASHBOARD</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: #f7f9fc;
-        }
+  <meta charset="UTF-8" />
+  <title>DASHBOARD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f7f9fc;
+    }
 
-        .sidebar {
-            background-color: #e6f0fa;
-            height: 100vh;
-            padding-top: 20px;
-        }
+    .sidebar {
+      background-color: #e6f0fa;
+      height: 100vh;
+      padding-top: 20px;
+    }
 
-        .sidebar .nav-link.active {
-            background-color: #ccc;
-            font-weight: bold;
-        }
-    </style>
+    .sidebar .nav-link.active {
+      background-color: #ccc;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-2 sidebar">
-                <h4 class="text-center fw-bold">WAREHOUSE</h4>
-                <nav class="nav flex-column px-3 mt-4">
-                    <a class="nav-link" href="inventory.html">INVENTORY</a>
-                    <a class="nav-link" href="supplies.html">SUPPLIES</a>
-                    <a class="nav-link" href="receive.html">RECEIVE</a>
-                    <a class="nav-link" href="report.html">REPORT</a>
-                    <a class="nav-link active" href="dashboard.html">DASHBOARD</a>
-                </nav>
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2 sidebar">
+        <h4 class="text-center fw-bold">WAREHOUSE</h4>
+        <nav class="nav flex-column px-3 mt-4">
+          <a class="nav-link" href="inventory.html">INVENTORY</a>
+          <a class="nav-link" href="supplies.html">SUPPLIES</a>
+          <a class="nav-link" href="receive.html">RECEIVE</a>
+          <a class="nav-link" href="report.html">REPORT</a>
+          <a class="nav-link active" href="dashboard.html">DASHBOARD</a>
+        </nav>
+      </div>
 
-            <!-- Main Content -->
-            <div class="col-md-10 p-4">
-                <h3 class="fw-bold fs-4 mb-3">DASHBOARD</h3>
+      <!-- Main Content -->
+      <div class="col-md-10 p-4">
+        <h3 class="fw-bold fs-4 mb-3">DASHBOARD</h3>
 
-                <!-- Filter -->
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        <input type="date" id="filterDate" class="form-control" />
-                    </div>
-                    <div class="col-md-4">
-                        <input type="month" id="filterMonth" class="form-control" />
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-outline-primary w-100" onclick="applyFilter()">Filter</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-outline-secondary w-100" onclick="resetFilter()">Reset</button>
-                    </div>
-                </div>
-
-                <!-- Summary Cards -->
-                <div class="row mb-4" id="summary-cards">
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>HEA → CTC</strong>
-                            <h4 id="heaCtc" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>HEA → DHL</strong>
-                            <h4 id="heaDhl" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>CTC → CUS</strong>
-                            <h4 id="ctcCus" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>DHL → CUS</strong>
-                            <h4 id="dhlCus" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Chart: Transfer -->
-                <canvas id="transferChart" height="100"></canvas>
-
-                <!-- Chart: Combined Stock -->
-                <h5 class="mt-5">Current Stock (CTC, DHL, Stock on hand)</h5>
-                <canvas id="stockChart" height="100"></canvas>
-            </div>
+        <!-- Filter -->
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <input type="date" id="filterDate" class="form-control" />
+          </div>
+          <div class="col-md-4">
+            <input type="month" id="filterMonth" class="form-control" />
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-outline-primary w-100" onclick="applyFilter()">Filter</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-outline-secondary w-100" onclick="resetFilter()">Reset</button>
+          </div>
         </div>
+
+        <!-- Summary Cards -->
+        <div class="row mb-4" id="summary-cards">
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>HEA → CTC</strong>
+              <h4 id="heaCtc" class="mb-0">0</h4>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>HEA → DHL</strong>
+              <h4 id="heaDhl" class="mb-0">0</h4>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>CTC → CUS</strong>
+              <h4 id="ctcCus" class="mb-0">0</h4>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>DHL → CUS</strong>
+              <h4 id="dhlCus" class="mb-0">0</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chart: Transfer -->
+        <canvas id="transferChart" height="100"></canvas>
+
+        <!-- Chart: Stock -->
+        <h5 class="mt-5">Current Stock (CTC, DHL, Stock on hand)</h5>
+        <canvas id="stockChart" height="100"></canvas>
+      </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-        import {
-            getDatabase, ref, onChildAdded
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCxAieSpxdtzyRRuesH7zWcSraaTwHjVlI",
-            authDomain: "web-developer-3d7db.firebaseapp.com",
-            databaseURL: "https://web-developer-3d7db-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "web-developer-3d7db",
-            storageBucket: "web-developer-3d7db.appspot.com",
-            messagingSenderId: "675554122600",
-            appId: "1:675554122600:web:cb79eb4cbf3d71088e54dd",
-            measurementId: "G-8YDXS10SQ9"
-        };
-        const app = initializeApp(firebaseConfig);
-        getAnalytics(app);
-        const db = getDatabase(app);
-        const historyRef = ref(db, 'transferHistory');
-        const inventoryRef = ref(db, 'inventory');
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_BUCKET",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-        let allData = [];
-        let allInventory = [];
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        let heaCtc = 0, heaDhl = 0, ctcCus = 0, dhlCus = 0;
-        let totalCtc = 0, totalDhl = 0;
+    const heaCtcEl = document.getElementById('heaCtc');
+    const heaDhlEl = document.getElementById('heaDhl');
+    const ctcCusEl = document.getElementById('ctcCus');
+    const dhlCusEl = document.getElementById('dhlCus');
 
-        onChildAdded(historyRef, snapshot => {
-            const d = snapshot.val();
-            d.timestampDate = new Date(d.timestamp);
-            allData.push(d);
-            recalculate();
+    let allTransfers = [];
+    let totalCtc = 0, totalDhl = 0;
+
+    onSnapshot(collection(db, "transferHistory"), snapshot => {
+      allTransfers = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        d.timestampDate = d.timestamp ? d.timestamp.toDate() : null;
+        allTransfers.push(d);
+      });
+      recalculate();
+    });
+
+    onSnapshot(collection(db, "inventory"), snapshot => {
+      totalCtc = 0;
+      totalDhl = 0;
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        totalCtc += Number(d.hea || 0);
+        totalDhl += Number(d.dhl || 0);
+      });
+      updateCharts();
+    });
+
+    let heaCtc = 0, heaDhl = 0, ctcCus = 0, dhlCus = 0;
+
+    function recalculate() {
+      heaCtc = heaDhl = ctcCus = dhlCus = 0;
+
+      allTransfers.forEach(d => {
+        if (!d.timestampDate) return;
+        if (d.from === 'HEA' && d.to === 'CTC') heaCtc += Number(d.qty);
+        else if (d.from === 'HEA' && d.to === 'DHL') heaDhl += Number(d.qty);
+        else if (d.from === 'CTC' && d.to === 'CUS') ctcCus += Number(d.qty);
+        else if (d.from === 'DHL' && d.to === 'CUS') dhlCus += Number(d.qty);
+      });
+
+      updateSummary();
+      updateCharts();
+    }
+
+    function updateSummary() {
+      heaCtcEl.textContent = heaCtc.toLocaleString();
+      heaDhlEl.textContent = heaDhl.toLocaleString();
+      ctcCusEl.textContent = ctcCus.toLocaleString();
+      dhlCusEl.textContent = dhlCus.toLocaleString();
+    }
+
+    let transferChart, stockChart;
+    const transferColors = ['#42a5f5', '#66bb6a', '#ffca28', '#ef5350'];
+    const stockColors = ['#7e57c2', '#26c6da', '#ff7043'];
+
+    function updateCharts() {
+      const transferData = [heaCtc, heaDhl, ctcCus, dhlCus];
+      const transferLabels = ['HEA → CTC', 'HEA → DHL', 'CTC → CUS', 'DHL → CUS'];
+
+      if (!transferChart) {
+        transferChart = new Chart(document.getElementById('transferChart'), {
+          type: 'bar',
+          data: { labels: transferLabels, datasets: [{ label: 'Transfer Qty', data: transferData, backgroundColor: transferColors }] },
+          options: { responsive: true, scales: { y: { beginAtZero: true } } }
         });
+      } else {
+        transferChart.data.datasets[0].data = transferData;
+        transferChart.update();
+      }
 
-        onChildAdded(inventoryRef, snapshot => {
-            const data = snapshot.val();
-            allInventory.push(data);
-            recalculate();
+      const stockOnHand = totalCtc + totalDhl;
+      const stockData = [totalCtc, totalDhl, stockOnHand];
+      const stockLabels = ['CTC', 'DHL', 'Stock on hand'];
+
+      if (!stockChart) {
+        stockChart = new Chart(document.getElementById('stockChart'), {
+          type: 'bar',
+          data: {
+            labels: stockLabels,
+            datasets: [{
+              label: 'Current Stock',
+              data: stockData,
+              backgroundColor: stockColors
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true } },
+            plugins: {
+              datalabels: {
+                anchor: 'end',
+                align: 'top',
+                formatter: (value) => value.toLocaleString(),
+                color: '#000'
+              }
+            }
+          },
+          plugins: [ChartDataLabels]
         });
+      } else {
+        stockChart.data.datasets[0].data = stockData;
+        stockChart.update();
+      }
+    }
 
-        function recalculate() {
-            heaCtc = heaDhl = ctcCus = dhlCus = 0;
-            totalCtc = totalDhl = 0;
+    window.applyFilter = function () {
+      const dateInput = document.getElementById('filterDate').value;
+      const monthInput = document.getElementById('filterMonth').value;
 
-            allInventory.forEach(item => {
-                totalCtc += Number(item.hea || 0);
-                totalDhl += Number(item.dhl || 0);
-            });
+      heaCtc = heaDhl = ctcCus = dhlCus = 0;
 
-            allData.forEach(d => {
-                if (d.from === 'HEA' && d.to === 'CTC') heaCtc += Number(d.qty);
-                else if (d.from === 'HEA' && d.to === 'DHL') heaDhl += Number(d.qty);
-                else if (d.from === 'CTC' && d.to === 'CUS') ctcCus += Number(d.qty);
-                else if (d.from === 'DHL' && d.to === 'CUS') dhlCus += Number(d.qty);
-            });
-
-            updateSummary();
-            updateCharts();
+      allTransfers.forEach(d => {
+        if (!d.timestampDate) return;
+        let match = true;
+        if (dateInput) {
+          const dStr = d.timestampDate.toISOString().split('T')[0];
+          match = (dStr === dateInput);
+        } else if (monthInput) {
+          const mStr = d.timestampDate.toISOString().slice(0, 7);
+          match = (mStr === monthInput);
         }
-
-        const heaCtcEl = document.getElementById('heaCtc');
-        const heaDhlEl = document.getElementById('heaDhl');
-        const ctcCusEl = document.getElementById('ctcCus');
-        const dhlCusEl = document.getElementById('dhlCus');
-
-        function updateSummary() {
-            heaCtcEl.textContent = heaCtc.toLocaleString();
-            heaDhlEl.textContent = heaDhl.toLocaleString();
-            ctcCusEl.textContent = ctcCus.toLocaleString();
-            dhlCusEl.textContent = dhlCus.toLocaleString();
+        if (match) {
+          if (d.from === 'HEA' && d.to === 'CTC') heaCtc += Number(d.qty);
+          else if (d.from === 'HEA' && d.to === 'DHL') heaDhl += Number(d.qty);
+          else if (d.from === 'CTC' && d.to === 'CUS') ctcCus += Number(d.qty);
+          else if (d.from === 'DHL' && d.to === 'CUS') dhlCus += Number(d.qty);
         }
+      });
 
-        let chart, stockChart;
-        const transferColors = ['#42a5f5', '#66bb6a', '#ffca28', '#ef5350'];
-        const stockColors = ['#7e57c2', '#26c6da', '#ff7043'];
+      updateSummary();
+      updateCharts();
+    };
 
-        function updateCharts() {
-            const transferData = [heaCtc, heaDhl, ctcCus, dhlCus];
-            const transferLabels = ['HEA → CTC', 'HEA → DHL', 'CTC → CUS', 'DHL → CUS'];
-
-            if (!chart) {
-                chart = new Chart(document.getElementById('transferChart'), {
-                    type: 'bar',
-                    data: { labels: transferLabels, datasets: [{ label: 'Transfer Qty', data: transferData, backgroundColor: transferColors }] },
-                    options: { responsive: true, scales: { y: { beginAtZero: true } } }
-                });
-            } else {
-                chart.data.datasets[0].data = transferData;
-                chart.update();
-            }
-
-            const stockOnHand = totalCtc + totalDhl;
-            const stockData = [totalCtc, totalDhl, stockOnHand];
-            const stockLabels = ['CTC', 'DHL', 'Stock on hand'];
-
-            if (!stockChart) {
-                stockChart = new Chart(document.getElementById('stockChart'), {
-                    type: 'bar',
-                    data: {
-                        labels: stockLabels,
-                        datasets: [{
-                            label: 'Current Stock',
-                            data: stockData,
-                            backgroundColor: stockColors
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        scales: { y: { beginAtZero: true } },
-                        plugins: {
-                            datalabels: {
-                                anchor: 'end',
-                                align: 'top',
-                                formatter: (value) => value.toLocaleString(),
-                                color: '#000'
-                            }
-                        }
-                    },
-                    plugins: [ChartDataLabels]
-                });
-            } else {
-                stockChart.data.datasets[0].data = stockData;
-                stockChart.update();
-            }
-        }
-
-        window.applyFilter = function () {
-            const dateInput = document.getElementById('filterDate').value;
-            const monthInput = document.getElementById('filterMonth').value;
-
-            heaCtc = heaDhl = ctcCus = dhlCus = 0;
-            totalCtc = totalDhl = 0;
-
-            allInventory.forEach(item => {
-                totalCtc += Number(item.hea || 0);
-                totalDhl += Number(item.dhl || 0);
-            });
-
-            allData.forEach(d => {
-                let match = true;
-                if (dateInput) {
-                    const dStr = d.timestampDate.toISOString().split('T')[0];
-                    match = (dStr === dateInput);
-                } else if (monthInput) {
-                    const mStr = d.timestampDate.toISOString().slice(0, 7);
-                    match = (mStr === monthInput);
-                }
-                if (match) {
-                    if (d.from === 'HEA' && d.to === 'CTC') heaCtc += Number(d.qty);
-                    else if (d.from === 'HEA' && d.to === 'DHL') heaDhl += Number(d.qty);
-                    else if (d.from === 'CTC' && d.to === 'CUS') ctcCus += Number(d.qty);
-                    else if (d.from === 'DHL' && d.to === 'CUS') dhlCus += Number(d.qty);
-                }
-            });
-
-            updateSummary();
-            updateCharts();
-        };
-
-        window.resetFilter = function () {
-            document.getElementById('filterDate').value = '';
-            document.getElementById('filterMonth').value = '';
-            recalculate();
-        };
-    </script>
+    window.resetFilter = function () {
+      document.getElementById('filterDate').value = '';
+      document.getElementById('filterMonth').value = '';
+      recalculate();
+    };
+  </script>
 </body>
 
 </html>
