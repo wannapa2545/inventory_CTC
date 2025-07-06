@@ -2,238 +2,241 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <title>REPORT</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: #f7f9fc;
-        }
+  <meta charset="UTF-8" />
+  <title>REPORT</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f7f9fc;
+    }
 
-        .sidebar {
-            background-color: #e6f0fa;
-            height: 100vh;
-            padding-top: 20px;
-        }
+    .sidebar {
+      background-color: #e6f0fa;
+      height: 100vh;
+      padding-top: 20px;
+    }
 
-        .sidebar .nav-link.active {
-            background-color: #ccc;
-            font-weight: bold;
-        }
+    .sidebar .nav-link.active {
+      background-color: #ccc;
+      font-weight: bold;
+    }
 
-        .table-rounded th:last-child {
-            border-top-right-radius: 10px;
-        }
-    </style>
+    .table-rounded th:last-child {
+      border-top-right-radius: 10px;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <div class="col-md-2 sidebar">
-                <h4 class="text-center fw-bold">WAREHOUSE</h4>
-                <nav class="nav flex-column px-3 mt-4">
-                    <a class="nav-link" href="inventory.html">INVENTORY</a>
-                    <a class="nav-link" href="supplies.html">SUPPLIES</a>
-                    <a class="nav-link" href="receive.html">RECEIVE</a>
-                    <a class="nav-link active" href="report.html">REPORT</a>
-                    <a class="nav-link" href="dashboard.html">DASHBOARD</a>
-                </nav>
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-md-2 sidebar">
+        <h4 class="text-center fw-bold">WAREHOUSE</h4>
+        <nav class="nav flex-column px-3 mt-4">
+          <a class="nav-link" href="inventory.html">INVENTORY</a>
+          <a class="nav-link" href="supplies.html">SUPPLIES</a>
+          <a class="nav-link" href="receive.html">RECEIVE</a>
+          <a class="nav-link active" href="report.html">REPORT</a>
+          <a class="nav-link" href="dashboard.html">DASHBOARD</a>
+        </nav>
+      </div>
 
-            <!-- Main Content -->
-            <div class="col-md-10 p-4">
-                <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
-                    <h3 class="fw-bold fs-4 mb-0">REPORT</h3>
-                    <button id="downloadXlsx" class="btn btn-success">
-                        <i class="bi bi-download me-1"></i> Export XLSX
-                    </button>
-                </div>
-
-                <!-- Summary Cards -->
-                <div class="row mb-4">
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>HEA → CTC</strong>
-                            <h4 id="heaCtcSum" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>HEA → DHL</strong>
-                            <h4 id="heaDhlSum" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>CTC → CUS</strong>
-                            <h4 id="ctcCusSum" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="bg-light p-3 border rounded text-center">
-                            <strong>DHL → CUS</strong>
-                            <h4 id="dhlCusSum" class="mb-0">0</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Date filters -->
-                <div class="row mb-3">
-                    <div class="col-md-4">
-                        <input type="date" id="filterDate" class="form-control" />
-                    </div>
-                    <div class="col-md-4">
-                        <input type="month" id="filterMonth" class="form-control" />
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-outline-primary w-100" onclick="applyFilter()">Filter</button>
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-outline-secondary w-100" onclick="resetFilter()">Reset</button>
-                    </div>
-                </div>
-
-                <!-- History Table -->
-                <div class="table-responsive">
-                    <table class="table table-bordered mt-3" id="history-table">
-                        <thead class="table-secondary fw-bold table-rounded">
-                            <tr>
-                                <th>Timestamp</th>
-                                <th>Part No</th>
-                                <th>Code</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Quantity</th>
-                                <th>CTC</th>
-                                <th>DHL</th>
-                                <th>Stock</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-body"></tbody>
-                    </table>
-                </div>
-            </div>
+      <!-- Main Content -->
+      <div class="col-md-10 p-4">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+          <h3 class="fw-bold fs-4 mb-0">REPORT</h3>
+          <button id="downloadXlsx" class="btn btn-success">
+            <i class="bi bi-download me-1"></i> Export XLSX
+          </button>
         </div>
+
+        <!-- Summary Cards -->
+        <div class="row mb-4">
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>HEA → CTC</strong>
+              <h4 id="heaCtcSum" class="mb-0">0</h4>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>HEA → DHL</strong>
+              <h4 id="heaDhlSum" class="mb-0">0</h4>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>CTC → CUS</strong>
+              <h4 id="ctcCusSum" class="mb-0">0</h4>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="bg-light p-3 border rounded text-center">
+              <strong>DHL → CUS</strong>
+              <h4 id="dhlCusSum" class="mb-0">0</h4>
+            </div>
+          </div>
+        </div>
+
+        <!-- Date filters -->
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <input type="date" id="filterDate" class="form-control" />
+          </div>
+          <div class="col-md-4">
+            <input type="month" id="filterMonth" class="form-control" />
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-outline-primary w-100" onclick="applyFilter()">Filter</button>
+          </div>
+          <div class="col-md-2">
+            <button class="btn btn-outline-secondary w-100" onclick="resetFilter()">Reset</button>
+          </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="table-responsive">
+          <table class="table table-bordered mt-3" id="history-table">
+            <thead class="table-secondary fw-bold table-rounded">
+              <tr>
+                <th>Timestamp</th>
+                <th>Part No</th>
+                <th>Code</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Quantity</th>
+                <th>CTC</th>
+                <th>DHL</th>
+                <th>Stock</th>
+              </tr>
+            </thead>
+            <tbody id="history-body"></tbody>
+          </table>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-        import {
-            getDatabase, ref, onChildAdded
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-        import { utils as XLSXUtils, writeFileXLSX } from "https://cdn.sheetjs.com/xlsx-0.20.3/package/xlsx.mjs";
+  <!-- Scripts -->
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    import { utils as XLSXUtils, writeFileXLSX } from "https://cdn.sheetjs.com/xlsx-0.20.3/package/xlsx.mjs";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCxAieSpxdtzyRRuesH7zWcSraaTwHjVlI",
-            authDomain: "web-developer-3d7db.firebaseapp.com",
-            databaseURL: "https://web-developer-3d7db-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "web-developer-3d7db",
-            storageBucket: "web-developer-3d7db.appspot.com",
-            messagingSenderId: "675554122600",
-            appId: "1:675554122600:web:cb79eb4cbf3d71088e54dd",
-            measurementId: "G-8YDXS10SQ9"
-        };
-        const app = initializeApp(firebaseConfig);
-        getAnalytics(app);
-        const db = getDatabase(app);
-        const historyRef = ref(db, 'transferHistory');
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_BUCKET",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
-        const historyBody = document.getElementById('history-body');
-        const downloadBtn = document.getElementById('downloadXlsx');
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-        let allRows = [];
+    const historyBody = document.getElementById('history-body');
+    const downloadBtn = document.getElementById('downloadXlsx');
+    const heaCtcEl = document.getElementById('heaCtcSum');
+    const heaDhlEl = document.getElementById('heaDhlSum');
+    const ctcCusEl = document.getElementById('ctcCusSum');
+    const dhlCusEl = document.getElementById('dhlCusSum');
 
-        onChildAdded(historyRef, snapshot => {
-            const d = snapshot.val();
-            const tr = document.createElement('tr');
-            tr.dataset.timestamp = d.timestamp; // เก็บ timestamp เพื่อ filter
-            tr.innerHTML = `
-        <td>${new Date(d.timestamp).toLocaleString()}</td>
-        <td>${d.partNo}</td>
-        <td>${d.code}</td>
-        <td>${d.from}</td>
-        <td>${d.to}</td>
-        <td>${d.qty}</td>
-        <td>${d.currentHea}</td>
-        <td>${d.currentDhl}</td>
-        <td>${d.currentStock}</td>
-      `;
-            historyBody.prepend(tr);
-            allRows.push(tr);
-            updateSums();
-        });
+    let allRows = [];
 
-        function updateSums() {
-            let heaCtc = 0, heaDhl = 0, ctcCus = 0, dhlCus = 0;
-            allRows.forEach(row => {
-                if (row.style.display === 'none') return;
-                const from = row.children[3].textContent;
-                const to = row.children[4].textContent;
-                const qty = Number(row.children[5].textContent);
-                if (from === 'HEA' && to === 'CTC') heaCtc += qty;
-                else if (from === 'HEA' && to === 'DHL') heaDhl += qty;
-                else if (from === 'CTC' && to === 'CUS') ctcCus += qty;
-                else if (from === 'DHL' && to === 'CUS') dhlCus += qty;
-            });
-            document.getElementById('heaCtcSum').textContent = heaCtc.toLocaleString();
-            document.getElementById('heaDhlSum').textContent = heaDhl.toLocaleString();
-            document.getElementById('ctcCusSum').textContent = ctcCus.toLocaleString();
-            document.getElementById('dhlCusSum').textContent = dhlCus.toLocaleString();
+    const q = query(collection(db, "transferHistory"), orderBy("timestamp", "desc"));
+    onSnapshot(q, snapshot => {
+      historyBody.innerHTML = "";
+      allRows = [];
+      snapshot.forEach(doc => {
+        const d = doc.data();
+        const tr = document.createElement('tr');
+        const ts = d.timestamp ? new Date(d.timestamp.toDate()).toLocaleString() : "-";
+        tr.dataset.timestamp = d.timestamp ? d.timestamp.toDate().toISOString() : "";
+        tr.innerHTML = `
+          <td>${ts}</td>
+          <td>${d.partNo}</td>
+          <td>${d.code}</td>
+          <td>${d.from}</td>
+          <td>${d.to}</td>
+          <td>${d.qty}</td>
+          <td>${d.after.hea}</td>
+          <td>${d.after.dhl}</td>
+          <td>${d.after.stock}</td>
+        `;
+        historyBody.appendChild(tr);
+        allRows.push(tr);
+      });
+      updateSums();
+    });
+
+    function updateSums() {
+      let heaCtc = 0, heaDhl = 0, ctcCus = 0, dhlCus = 0;
+      allRows.forEach(row => {
+        if (row.style.display === 'none') return;
+        const from = row.children[3].textContent;
+        const to = row.children[4].textContent;
+        const qty = Number(row.children[5].textContent);
+        if (from === 'HEA' && to === 'CTC') heaCtc += qty;
+        else if (from === 'HEA' && to === 'DHL') heaDhl += qty;
+        else if (from === 'CTC' && to === 'CUS') ctcCus += qty;
+        else if (from === 'DHL' && to === 'CUS') dhlCus += qty;
+      });
+      heaCtcEl.textContent = heaCtc.toLocaleString();
+      heaDhlEl.textContent = heaDhl.toLocaleString();
+      ctcCusEl.textContent = ctcCus.toLocaleString();
+      dhlCusEl.textContent = dhlCus.toLocaleString();
+    }
+
+    window.applyFilter = function () {
+      const dateVal = document.getElementById('filterDate').value;
+      const monthVal = document.getElementById('filterMonth').value;
+
+      allRows.forEach(row => {
+        const rowDate = new Date(row.dataset.timestamp);
+        let show = true;
+
+        if (dateVal) {
+          const rowDateStr = rowDate.toISOString().split('T')[0];
+          show = (rowDateStr === dateVal);
+        } else if (monthVal) {
+          const rowMonthStr = rowDate.toISOString().slice(0, 7);
+          show = (rowMonthStr === monthVal);
         }
 
-        window.applyFilter = function () {
-            const dateVal = document.getElementById('filterDate').value;
-            const monthVal = document.getElementById('filterMonth').value;
+        row.style.display = show ? '' : 'none';
+      });
 
-            allRows.forEach(row => {
-                const rowDate = new Date(row.dataset.timestamp);
-                let show = true;
+      updateSums();
+    };
 
-                if (dateVal) {
-                    const rowDateStr = rowDate.toISOString().split('T')[0];
-                    show = (rowDateStr === dateVal);
-                } else if (monthVal) {
-                    const rowMonthStr = rowDate.toISOString().slice(0, 7);
-                    show = (rowMonthStr === monthVal);
-                }
+    window.resetFilter = function () {
+      document.getElementById('filterDate').value = '';
+      document.getElementById('filterMonth').value = '';
 
-                row.style.display = show ? '' : 'none';
-            });
+      allRows.forEach(row => {
+        row.style.display = '';
+      });
 
-            updateSums();
-        };
+      updateSums();
+    };
 
-        window.resetFilter = function () {
-            document.getElementById('filterDate').value = '';
-            document.getElementById('filterMonth').value = '';
-
-            allRows.forEach(row => {
-                row.style.display = '';
-            });
-
-            updateSums();
-        };
-
-        if (downloadBtn) {
-            downloadBtn.addEventListener('click', () => {
-                const wb = XLSXUtils.book_new();
-                const histTable = document.getElementById('history-table');
-                if (histTable) {
-                    const ws = XLSXUtils.table_to_sheet(histTable);
-                    XLSXUtils.book_append_sheet(wb, ws, 'Report');
-                    writeFileXLSX(wb, `report_${Date.now()}.xlsx`);
-                }
-            });
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', () => {
+        const wb = XLSXUtils.book_new();
+        const histTable = document.getElementById('history-table');
+        if (histTable) {
+          const ws = XLSXUtils.table_to_sheet(histTable);
+          XLSXUtils.book_append_sheet(wb, ws, 'Report');
+          writeFileXLSX(wb, `report_${new Date().toISOString().slice(0, 10)}.xlsx`);
         }
-    </script>
+      });
+    }
+  </script>
 </body>
 
 </html>
